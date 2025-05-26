@@ -6,8 +6,8 @@ __pycache__/
 .venv
 .env
 
-results/.
-data/.
+results/*
+data/*
 !.gitkeep
 
 # C extensions
