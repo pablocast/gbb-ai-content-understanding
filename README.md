@@ -16,7 +16,6 @@ Azure AI Content Understanding is a new Generative AI-based [Azure AI service](h
 | [contrato.json](analyzer_templates/contrato.json) | In this sample we will show how to create a customized analyzer
 | | 
 
-
 ## Getting started
 
 ### Local environment
