@@ -1,0 +1,9 @@
+azure-identity
+python-dotenv
+requests
+Pillow
+openai==1.63.0
+azure-ai-documentintelligence
+jupyter                                      
+notebook                                     
+ipykernel 

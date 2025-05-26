@@ -1,0 +1,296 @@
+{
+    "description": "Análise de contrato de financiamento habitacional",
+    "scenario": "document",
+    "config": {
+        "returnDetails": true
+    },
+    "fieldSchema": {
+        "fields": {
+            "DataAssinatura": {
+                "type": "string",
+                "method": "extract",
+                "description": "Data de assinatura do contrato de financiamento habitacional. Base legal: subitem 9.1.6 do RAFCVS."
+            },
+            "NomeCompletoVendedor": {
+                "type": "string",
+                "method": "extract",
+                "description": "Nome completo do(s) vendedor(es) do imóvel. Subitem 11.5.2 do RAFCVS."
+            },
+            "CPF_CNPJVendedor": {
+                "type": "string",
+                "method": "extract",
+                "description": "CPF ou CNPJ do vendedor. Subitem 11.5.2 do RAFCVS.",
+                "anyOf": [
+                    {
+                        "pattern": "^[0-9]{3}\\.?[0-9]{3}\\.?[0-9]{3}-?[0-9]{2}$"
+                    },
+                    {
+                        "pattern": "^[0-9]{2}\\.?[0-9]{3}\\.?[0-9]{3}/?[0-9]{4}-?[0-9]{2}$"
+                    }
+                ]
+            },
+            "EstadoCivilVendedor": {
+                "type": "string",
+                "method": "extract",
+                "description": "Estado civil declarado do vendedor no contrato.",
+                "enum": ["solteiro", "casado", "divorciado", "viuvo", "outro"]
+            },
+            "NomeConjugeVendedor": {
+                "type": "string",
+                "method": "extract",
+                "description": "Nome do cônjuge do vendedor, quando aplicável. Subitem 11.5.2 do RAFCVS."
+            },
+            "CPF_CNPJConjugeVendedor": {
+                "type": "string",
+                "method": "extract",
+                "description": "CPF ou CNPJ do cônjuge do vendedor, quando aplicável. Subitem 11.5.2 do RAFCVS.",
+                "anyOf": [
+                    {
+                        "pattern": "^[0-9]{3}\\.?[0-9]{3}\\.?[0-9]{3}-?[0-9]{2}$"
+                    },
+                    {
+                        "pattern": "^[0-9]{2}\\.?[0-9]{3}\\.?[0-9]{3}/?[0-9]{4}-?[0-9]{2}$"
+                    }
+                ]
+            },
+            "ParticipantesRenda": {
+                "type": "array",
+                "method": "extract",
+                "description": "Identificação de todos os participantes que compõem a renda familiar no financiamento. Subitem 4.4.2 do FP091.",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "nome": {
+                            "type": "string",
+                            "description": "Nome do participante da renda."
+                        },
+                        "CPF_CNPJ": {
+                            "type": "string",
+                            "description": "CPF ou CNPJ do participante da renda.",
+                            "anyOf": [
+                                {
+                                    "pattern": "^[0-9]{3}\\.?[0-9]{3}\\.?[0-9]{3}-?[0-9]{2}$"
+                                },
+                                {
+                                    "pattern": "^[0-9]{2}\\.?[0-9]{3}\\.?[0-9]{3}/?[0-9]{4}-?[0-9]{2}$"
+                                }
+                            ]
+                        },
+                        "PercentualRenda": {
+                            "type": "number",
+                            "description": "Percentual da renda total que cada participante contribui para o financiamento."
+                        }
+                    }
+                }
+            },
+            "CPF_CNPJMutuarioPrincipal": {
+                "type": "string",
+                "method": "extract",
+                "description": "CPF ou CNPJ do mutuário principal (titular do financiamento). Subitens 4.36 do FP091 e 11.5.1 do RAFCVS.",
+                "anyOf": [
+                    {
+                        "pattern": "^[0-9]{3}\\.?[0-9]{3}\\.?[0-9]{3}-?[0-9]{2}$"
+                    },
+                    {
+                        "pattern": "^[0-9]{2}\\.?[0-9]{3}\\.?[0-9]{3}/?[0-9]{4}-?[0-9]{2}$"
+                    }
+                ]
+            },
+            "NomeMutuarioPrincipal": {
+                "type": "string",
+                "method": "extract",
+                "description": "Nome completo do mutuário principal. Subitem 9.1.2 do RAFCVS e 4.36 do FP091."
+            },
+            "DataNascimentoMutuarioPrincipal": {
+                "type": "string",
+                "method": "extract",
+                "description": "Data de nascimento do mutuário principal. Subitem 4.36 do FP091."
+            },
+            "IdentidadeMutuarioPrincipal": {
+                "type": "string",
+                "method": "extract",
+                "description": "Número do RG (ou outro documento de identidade válido) do mutuário principal."
+            },
+            "EstadoCivilMutuario": {
+                "type": "string",
+                "method": "extract",
+                "description": "Estado civil do mutuário principal conforme contrato.",
+                "enum": ["solteiro", "casado", "divorciado", "viuvo", "outro"]
+            },
+            "NomeConjugeCodevedorMutuario": {
+                "type": "string",
+                "description": "Nome do cônjuge ou codevedor do mutuário, se houver. Subitem 11.5.2 do RAFCVS."
+            },
+            "CPF_CNPJConjugeCodevedorMutuario": {
+                "type": "string",
+                "method": "extract",
+                "description": "CPF ou CNPJ do cônjuge ou codevedor do mutuário, se houver. Subitem 11.5.2 do RAFCVS.",
+                "anyOf": [
+                    {
+                        "pattern": "^[0-9]{3}\\.?[0-9]{3}\\.?[0-9]{3}-?[0-9]{2}$"
+                    },
+                    {
+                        "pattern": "^[0-9]{2}\\.?[0-9]{3}\\.?[0-9]{3}/?[0-9]{4}-?[0-9]{2}$"
+                    }
+                ]
+            },
+            "EnderecoImovel": {
+                "type": "array",
+                "method": "extract",
+                "description": "Detalhes do endereço do imóvel financiado. Subitem 9.1.5 do RAFCVS.",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "street": {
+                            "type": "string",
+                            "description": "Nome da rua."
+                        },
+                        "number": {
+                            "type": "string",
+                            "description": "Número do imóvel."
+                        },
+                        "apartment": {
+                            "type": "string",
+                            "description": "Apt./Bloco/Unidade, se aplicável."
+                        },
+                        "cep": {
+                            "type": "string",
+                            "description": "Código postal (CEP)."
+                        },
+                        "city": {
+                            "type": "string",
+                            "description": "Cidade onde o imóvel está localizado."
+                        },
+                        "state": {
+                            "type": "string",
+                            "description": "Estado onde o imóvel está localizado."
+                        }
+                    }
+                }
+            },
+            "MunicipioImovel": {
+                "type": "string",
+                "method": "extract",
+                "description": "Município onde está localizado o imóvel. Subitem 9.1.5 do RAFCVS.",
+                "examples": [
+                    "São Paulo",
+                    "Rio de Janeiro",
+                    "Belo Horizonte",
+                    "Curitiba"
+                ]
+            },
+            "AgenteFinanceiroOrigem": {
+                "type": "string",
+                "method": "extract",
+                "description": "Nome da instituição financeira responsável pela concessão do financiamento (AF original)."
+            },
+            "VendedorPessoaJuridica": {
+				"type": "string",
+				"method": "classify",
+				"description": "Identificação se o vendedor é uma pessoa jurídica (empresa, construtora, etc.).",
+				"enum": [
+					"Sim",
+					"Nao"
+				],
+				"enumDescriptions": {
+					"Sim": "Vendedor é uma pessoa jurídica (empresa, construtora, etc.).",
+					"Nao": "Vendedor não é uma pessoa jurídica "
+				}
+			},
+            "MutuarioUnicoParticipante": {
+                "type": "string",
+                "method": "classify",
+                "description": "Indica se apenas o mutuário principal está envolvido ou se há outros participantes/codevedores.",
+                "enum": [
+                    "Sim",
+                    "Nao"
+                ],
+                "enumDescriptions": {
+                    "Sim": "Apenas o mutuário principal está envolvido.",
+                    "Nao": "Existem outros participantes/codevedores envolvidos."
+                }
+            },
+            "MutuarioAutonomo": {
+                "type": "string",
+                "method": "classify",
+                "description": "Verificar se o mutuário principal é autônomo ou possui ocupação similar. Subitem 4.18.5 do FP091.",
+                "enum": [
+                    "Sim",
+                    "Nao"
+                ],
+                "enumDescriptions": {
+                    "Sim": "Mutuário principal é autônomo ou possui ocupação similar.",
+                    "Nao": "Mutuário principal não é autônomo."
+                }
+            },
+            "ComprovacaoRegularizacaoFundiaria": {
+                "type": "string",
+                "method": "classify",
+                "description": "Para contratos do tipo TOPOC, verificar se há comprovação de regularização fundiária. Subitens 4.9 e 4.50 do FP091.",
+                "enum": [
+                    "Sim",
+                    "Nao"
+                ],
+                "enumDescriptions": {
+                    "Sim": "Há comprovação de regularização fundiária.",
+                    "Nao": "Não há comprovação de regularização fundiária."
+                }
+            },
+            "ValorFinanciamento": {
+                "type": "number",
+                "method": "extract",
+                "description": "Valor concedido no financiamento habitacional. Subitem 2.4 do RAFCVS."
+            },
+            "ValorCompraVenda": {
+                "type": "number",
+                "method": "extract",
+                "description": "Valor acordado para compra e venda do imóvel."
+            },
+            "ValorGarantiaAvaliacao": {
+                "type": "number",
+                "method": "extract",
+                "description": "Valor de garantia ou avaliação do imóvel. Subitem 1.6 do RAFCVS."
+            },
+            "TaxaJuros": {
+                "type": "number",
+                "method": "extract",
+                "description": "Taxa de juros do contrato de financiamento. Subitem 2.3 do RAFCVS."
+            },
+            "PrazoFinanciamento": {
+                "type": "string",
+                "method": "extract",
+                "description": "Prazo total do financiamento, em meses ou anos. Subitem 2.3 do RAFCVS."
+            },
+            "PlanoReajustamento": {
+                "type": "string",
+                "method": "extract",
+                "description": "Plano utilizado para reajuste das prestações (ex: SAC, Price, TR, etc.). Subitem 2.1 do RAFCVS.",
+                "enum": ["SAC", "Price", "TR", "outro"]
+            },
+            "SistemaAmortizacao": {
+                "type": "string",
+                "method": "extract",
+                "description": "Tipo de sistema de amortização do contrato (ex: SAC, SAM, Price). Subitem 2.2 do RAFCVS e 4.18.9 do FP091.",
+                "enum": ["SAC", "SAM", "Price", "outro"]
+            },
+            "DataPrimeiraPrestacao": {
+                "type": "string",
+                "method": "extract",
+                "description": "Data prevista ou efetiva do pagamento da primeira parcela. Deve ser postada após a assinatura do contrato. Subitem 2.5 do RAFCVS."
+            },
+            "RegistradoCRI": {
+                "type": "string",
+                "method": "classify",
+                "description": "Indica se o contrato ou imóvel está registrado no Cartório de Registro de Imóveis (CRI). Subitem 10.1 do MNPO e Capítulo II da Resolução 468/2022.",
+                "enum": [
+                    "Sim",
+                    "Nao"
+                ],
+                "enumDescriptions": {
+                    "Sim": "Contrato/imóvel está registrado no Cartório de Registro de Imóveis (CRI).",
+                    "Nao": "Contrato/imóvel não está registrado no Cartório de Registro de Imóveis (CRI)."
+                }
+            }
+        }
+    }
+}
