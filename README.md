@@ -44,10 +44,9 @@ python3.11 -m venv .venv
 
 ## Open a Jupyter notebook and follow the step-by-step guidance
 
-Navigate to the `notebooks` directory and select the sample notebook you are interested in. Since Codespaces is pre-configured with the necessary environment, you can directly execute each step in the notebook.
+Navigate to the `notebooks` directory and select the sample notebook [field_extraction](./notebooks/field_extraction.ipynb)
 
 
 ## Pricing Details for Content Understanding
-
 Please visit the [Azure AI Content Understanding pricing page](https://azure.microsoft.com/en-us/pricing/details/content-understanding/?msockid=214d8af4234a67c10e3f9f0c2233666b) for details on prices.
 
