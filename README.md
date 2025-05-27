@@ -44,7 +44,7 @@ python3.11 -m venv .venv
 
 ## Open a Jupyter notebook and follow the step-by-step guidance
 
-Navigate to the `notebooks` directory and select the sample notebook [field_extraction](./notebooks/field_extraction.ipynb)
+Navigate to the `notebooks` directory and select the sample notebook [field_extraction](./notebooks/field_extraction.ipynb).
 
 
 ## Pricing Details for Content Understanding
